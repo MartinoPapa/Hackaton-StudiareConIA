@@ -1,0 +1,655 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Master - App di Gioco</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --bg-deep: #050811;
+            --bg-card: #0b1120;
+            --bg-card-hover: #121b30;
+            --border-color: #1e2d4a;
+            
+            --neon-cyan: #00F0FF;
+            --neon-cyan-glow: rgba(0, 240, 255, 0.4);
+            
+            --neon-purple: #BD00FF;
+            --neon-purple-glow: rgba(189, 0, 255, 0.4);
+            
+            --neon-orange: #FF9900;
+            --neon-orange-glow: rgba(255, 153, 0, 0.4);
+
+            --text-main: #94A3B8;
+            --text-light: #E2E8F0;
+            --text-bright: #FFFFFF;
+        }
+
+        /* --- GLOBAL --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.01) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding-bottom: 60px;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: rgba(11, 17, 32, 0.9);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 4px 20px var(--neon-cyan-glow);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-container {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+
+        .logo-area h1 {
+            color: var(--neon-cyan);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--neon-cyan-glow);
+        }
+
+        .logo-area p {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            color: var(--neon-purple);
+            letter-spacing: 1px;
+        }
+
+        /* --- BUTTONS --- */
+        .nav-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cyber-btn {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            position: relative;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--neon-cyan);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .cyber-btn:hover {
+            box-shadow: 0 0 15px var(--neon-cyan-glow);
+            color: var(--bg-deep);
+            text-shadow: none;
+        }
+
+        .cyber-btn:hover::before {
+            opacity: 1;
+        }
+
+        .cyber-btn.purple {
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+        }
+
+        .cyber-btn.purple::before {
+            background: var(--neon-purple);
+        }
+
+        .cyber-btn.purple:hover {
+            box-shadow: 0 0 15px var(--neon-purple-glow);
+            color: var(--text-bright);
+        }
+
+        .cyber-btn.orange {
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+        }
+
+        .cyber-btn.orange::before {
+            background: var(--neon-orange);
+        }
+
+        .cyber-btn.orange:hover {
+            box-shadow: 0 0 15px var(--neon-orange-glow);
+            color: var(--bg-deep);
+        }
+
+        .cyber-btn.active {
+            background: var(--neon-cyan);
+            color: var(--bg-deep);
+            box-shadow: 0 0 15px var(--neon-cyan-glow);
+        }
+        .cyber-btn.purple.active {
+            background: var(--neon-purple);
+            color: var(--text-bright);
+            box-shadow: 0 0 15px var(--neon-purple-glow);
+        }
+
+        /* --- DASHBOARD --- */
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin: 30px auto;
+            max-width: 1400px;
+            padding: 0 20px;
+        }
+
+        /* --- CHALLENGE STATION --- */
+        .challenge-board {
+            background-color: rgba(11, 17, 32, 0.7);
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            position: relative;
+            text-align: center;
+        }
+
+        .challenge-board::before {
+            content: '💻 AI_CHALLENGE_GENERATOR';
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--text-main);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background-color: var(--bg-deep);
+            padding: 0 10px;
+        }
+
+        .challenge-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .empty-slot {
+            align-items: center;
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            height: 250px;
+            justify-content: center;
+            color: var(--border-color);
+        }
+
+        .empty-slot i {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* --- FILTER BAR --- */
+        .filter-section {
+            align-items: center;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .deck-info {
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            gap: 15px;
+        }
+
+        .deck-info span {
+            color: var(--neon-cyan);
+            font-weight: bold;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* --- CARDS --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .cyber-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            height: 380px;
+            justify-content: space-between;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--bg-card-hover);
+        }
+
+        /* Colors */
+        .cyber-card.topic { border-top: 4px solid var(--neon-cyan); }
+        .cyber-card.topic:hover { box-shadow: 0 5px 20px rgba(0, 240, 255, 0.15); border-color: var(--neon-cyan); }
+        
+        .cyber-card.context { border-top: 4px solid var(--neon-purple); }
+        .cyber-card.context:hover { box-shadow: 0 5px 20px rgba(189, 0, 255, 0.15); border-color: var(--neon-purple); }
+        
+        .cyber-card.malus { border-top: 4px solid var(--neon-orange); }
+        .cyber-card.malus:hover { box-shadow: 0 5px 20px rgba(255, 153, 0, 0.15); border-color: var(--neon-orange); }
+
+        .card-header {
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            justify-content: space-between;
+            padding-bottom: 12px;
+        }
+
+        .card-type-tag { font-weight: 600; letter-spacing: 1px; }
+        .topic .card-type-tag { color: var(--neon-cyan); }
+        .context .card-type-tag { color: var(--neon-purple); }
+        .malus .card-type-tag { color: var(--neon-orange); }
+
+        .card-id { color: var(--text-main); opacity: 0.7; }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .card-title {
+            color: var(--text-bright);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .card-desc {
+            color: var(--text-main);
+            font-size: 16px; /* Ingrandito leggermente per leggibilità */
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            justify-content: space-between;
+            padding-top: 12px;
+            color: var(--text-main);
+            opacity: 0.5;
+        }
+
+        .neon-text-cyan { color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan-glow); }
+        .neon-text-purple { color: var(--neon-purple); text-shadow: 0 0 5px var(--neon-purple-glow); }
+        .neon-text-orange { color: var(--neon-orange); text-shadow: 0 0 5px var(--neon-orange-glow); }
+
+        /* --- PRINT --- */
+        @media print {
+            body { background: white !important; color: black !important; padding: 0 !important; }
+            header, .challenge-board, .filter-section, .nav-controls, .card-footer i { display: none !important; }
+            .dashboard { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            .cards-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 15px !important; page-break-inside: avoid; }
+            .cyber-card { background: white !important; border: 2px solid #000 !important; color: black !important; height: 280px !important; page-break-inside: avoid !important; box-shadow: none !important; transform: none !important; }
+            .card-title { color: black !important; font-size: 18px !important;}
+            .card-desc { color: #333 !important; font-size: 12px !important;}
+            .topic { border-top: 15px solid #000 !important; }
+            .context { border-top: 15px solid #666 !important; }
+            .malus { border-top: 15px solid #ccc !important; }
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .logo-area h1 { font-size: 24px; }
+            .nav-controls { display: none; /* Nascondi pulsante stampa su mobile */ }
+            .filter-section { flex-direction: column; align-items: stretch; }
+            .filter-group { flex-wrap: wrap; }
+            .filter-group button { flex-grow: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <h1>PROMPT MASTER</h1>
+                <p>> DATABASE_115_CARTE_ATTIVO</p>
+            </div>
+            <div class="nav-controls">
+                <button class="cyber-btn orange" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> Stampa Mazzo (A4)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard">
+        
+        <section class="challenge-board">
+            <div class="nav-controls" style="justify-content: center; margin-bottom: 20px;">
+                <button class="cyber-btn orange" onclick="generateChallenge()" style="font-size: 18px; padding: 12px 30px;">
+                    <i class="fa-solid fa-bolt"></i> Estrai Sfida Casuale
+                </button>
+            </div>
+            
+            <div class="challenge-slots" id="challenge-slots">
+                <div class="empty-slot">
+                    <i class="fa-solid fa-crosshairs neon-text-cyan"></i>
+                    <p>Mazzo Topic (45)</p>
+                </div>
+                <div class="empty-slot">
+                    <i class="fa-solid fa-masks-theater neon-text-purple"></i>
+                    <p>Mazzo Contesto (35)</p>
+                </div>
+                <div class="empty-slot">
+                    <i class="fa-solid fa-triangle-exclamation neon-text-orange"></i>
+                    <p>Mazzo Malus (35)</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="filter-section">
+            <div class="deck-info">
+                <span><span id="deck-count">115</span> Carte Totali</span>
+                <span>(<span id="topic-count" style="color:var(--text-main)">45</span> Topic, <span id="context-count" style="color:var(--text-main)">35</span> Contesto, <span id="malus-count" style="color:var(--text-main)">35</span> Malus)</span>
+            </div>
+            <div class="filter-group">
+                <button class="cyber-btn active" id="filter-all" onclick="filterCards('all')">Tutte</button>
+                <button class="cyber-btn" id="filter-topic" onclick="filterCards('topic')">Solo Topic</button>
+                <button class="cyber-btn purple" id="filter-context" onclick="filterCards('context')">Solo Contesto</button>
+                <button class="cyber-btn orange" id="filter-malus" onclick="filterCards('malus')">Solo Malus</button>
+            </div>
+        </section>
+
+        <main class="cards-grid" id="cards-grid">
+            <!-- Le carte verranno inserite qui dal JS -->
+        </main>
+
+    </div>
+
+    <script>
+        // Database completo e semplice: 45 Topic, 35 Contesto, 35 Malus (Tot: 115)
+        const mainDeck = [
+            // === TOPICS (45) - Obiettivi semplici, divertenti e d'impatto ===
+            { id: "TOP-01", type: "topic", title: "Ricetta Svuota-Frigo", desc: "Inventa una ricetta usando solo: tonno, yogurt bianco, mezza cipolla e ketchup." },
+            { id: "TOP-02", type: "topic", title: "Spiega la Gravità", desc: "Spiega la forza di gravità usando una metafora legata alle feste di compleanno." },
+            { id: "TOP-03", type: "topic", title: "Micro Giallo", desc: "Scrivi un mini-racconto poliziesco in esattamente tre frasi, con un colpo di scena finale." },
+            { id: "TOP-04", type: "topic", title: "Lettera di Scuse", desc: "Scrivi un'email di scuse al capo per aver inviato un video di gattini a tutta l'azienda." },
+            { id: "TOP-05", type: "topic", title: "Cos'è Internet?", desc: "Spiega cos'è e come funziona Internet usando l'esempio dei tubi dell'acqua." },
+            { id: "TOP-06", type: "topic", title: "Guida Turistica", desc: "Pianifica un weekend turistico nella tua città, ma senza nominare nessun monumento famoso." },
+            { id: "TOP-07", type: "topic", title: "Ninna Nanna Robotica", desc: "Scrivi una ninna nanna per far addormentare un robot aspirapolvere." },
+            { id: "TOP-08", type: "topic", title: "Allenamento Pigro", desc: "Crea una scheda di allenamento per una persona che non vuole assolutamente alzarsi dal divano." },
+            { id: "TOP-09", type: "topic", title: "Guida Alieni", desc: "Scrivi un manuale di base su come usare una forchetta, destinato a un turista alieno." },
+            { id: "TOP-10", type: "topic", title: "Mistero dei Calzini", desc: "Scrivi una teoria assurda sul perché la lavatrice mangia sempre e solo il calzino sinistro." },
+            { id: "TOP-11", type: "topic", title: "Messaggio dal Futuro", desc: "Scrivi un messaggio di avvertimento urgente inviato dal te stesso di 20 anni nel futuro." },
+            { id: "TOP-12", type: "topic", title: "Nuova Invenzione", desc: "Inventa e pubblicizza un elettrodomestico chiamato 'Pettina-Spaghetti'." },
+            { id: "TOP-13", type: "topic", title: "Recensione Assurda", desc: "Scrivi la recensione di una persona che ha comprato un sasso come animale domestico." },
+            { id: "TOP-14", type: "topic", title: "Discorso Motivazionale", desc: "Scrivi un discorso per caricare una pianta grassa mezza morta sul balcone." },
+            { id: "TOP-15", type: "topic", title: "La Prima Ruota", desc: "Scrivi un dialogo comico tra l'inventore della ruota e un cliente preistorico diffidente." },
+            { id: "TOP-16", type: "topic", title: "Come Funziona l'Amore", desc: "Spiega come funziona l'amore romantico a un computer che conosce solo numeri." },
+            { id: "TOP-17", type: "topic", title: "Poesia sul Caffè", desc: "Componi una poesia drammatica ed epica sul primo caffè del lunedì mattina." },
+            { id: "TOP-18", type: "topic", title: "Meteo Fantasy", desc: "Crea le previsioni del meteo per una giornata in un regno abitato da draghi." },
+            { id: "TOP-19", type: "topic", title: "Cos'è il Rosso?", desc: "Descrivi il colore rosso senza mai usare la parola 'colore' o nessun altro colore." },
+            { id: "TOP-20", type: "topic", title: "Lettera a Babbo Natale", desc: "Scrivi la lettera a Babbo Natale di un bambino di 40 anni che chiede di pagare meno tasse." },
+            { id: "TOP-21", type: "topic", title: "Scuse Storiche", desc: "Scrivi la finta email di scuse dell'architetto che ha costruito la Torre di Pisa inclinata." },
+            { id: "TOP-22", type: "topic", title: "Vita da Bottone", desc: "Racconta in prima persona la faticosa giornata di un bottone dei jeans dopo il pranzo di Natale." },
+            { id: "TOP-23", type: "topic", title: "Sport Bizzarro", desc: "Inventa le regole di un nuovo sport che unisce le bocce e il pattinaggio sul ghiaccio." },
+            { id: "TOP-24", type: "topic", title: "L'Arte del Divano", desc: "Spiega perché poltrire sul divano dovrebbe essere considerata una forma di meditazione." },
+            { id: "TOP-25", type: "topic", title: "Discorso del Sindaco", desc: "Scrivi il discorso di un sindaco che inaugura una rotonda totalmente inutile." },
+            { id: "TOP-26", type: "topic", title: "Spiega la Mancia", desc: "Spiega il concetto di lasciare la mancia a un cane che capisce solo di croccantini." },
+            { id: "TOP-27", type: "topic", title: "La Dieta Impossibile", desc: "Inventa una dieta in cui bisogna mangiare solo cose rotonde." },
+            { id: "TOP-28", type: "topic", title: "Problemi da Zombie", desc: "Racconta i fastidi quotidiani di uno zombie che cerca di usare lo smartphone." },
+            { id: "TOP-29", type: "topic", title: "Vendere il Ghiaccio", desc: "Scrivi un annuncio per vendere del ghiaccio a un abitante del Polo Nord." },
+            { id: "TOP-30", type: "topic", title: "Curriculum Vitae", desc: "Scrivi il CV esagerato del gatto di casa per farsi assumere come guardia di sicurezza." },
+            { id: "TOP-31", type: "topic", title: "Regole del Nascondino", desc: "Spiega le regole del nascondino a una persona invisibile." },
+            { id: "TOP-32", type: "topic", title: "Film di Serie B", desc: "Inventa la trama di un film horror in cui il mostro è un rotolo di carta igienica gigante." },
+            { id: "TOP-33", type: "topic", title: "Lamentele Condominiali", desc: "Scrivi un avviso da appendere nell'androne per lamentarti dei rumori di un vicino inesistente." },
+            { id: "TOP-34", type: "topic", title: "Canzone Estiva", desc: "Scrivi il ritornello tormentone di una canzone dedicata all'aria condizionata." },
+            { id: "TOP-35", type: "topic", title: "Teoria dei Gatti", desc: "Scrivi una teoria che dimostri che i gatti sono liquidi e non solidi." },
+            { id: "TOP-36", type: "topic", title: "Invito Scomodo", desc: "Scrivi un messaggio per invitare un parente noioso a cena sperando che dica di no." },
+            { id: "TOP-37", type: "topic", title: "Manuale Auto", desc: "Scrivi le istruzioni su come usare la freccia dell'auto per chi non l'ha mai usata in vita sua." },
+            { id: "TOP-38", type: "topic", title: "Cos'è il Sonno", desc: "Spiega a una macchina perché gli umani devono spegnersi per 8 ore ogni notte." },
+            { id: "TOP-39", type: "topic", title: "Litigio col Navigatore", desc: "Scrivi un dialogo acceso tra un autista testardo e il navigatore del telefono." },
+            { id: "TOP-40", type: "topic", title: "Supereroe Inutile", desc: "Descrivi i poteri di un supereroe capace solo di ritrovare i telecomandi persi nel divano." },
+            { id: "TOP-41", type: "topic", title: "Segreti dei Piccioni", desc: "Svela il complotto segreto dei piccioni di città." },
+            { id: "TOP-42", type: "topic", title: "Ode alla Pizza", desc: "Scrivi una lode solenne dedicata a una pizza Margherita." },
+            { id: "TOP-43", type: "topic", title: "Ritardo a Scuola", desc: "Inventa la scusa più assurda, ma credibile, per essere arrivato tardi al lavoro o a scuola." },
+            { id: "TOP-44", type: "topic", title: "Come si Fa un Selfie", desc: "Spiega come farsi un selfie a un pittore di autoritratti del Rinascimento." },
+            { id: "TOP-45", type: "topic", title: "La Magia del Wi-Fi", desc: "Spiega come funziona il Wi-Fi descrivendolo come se fosse una magia antica." },
+
+            // === CONTESTI (35) - Identità semplici da emulare ===
+            { id: "CTX-01", type: "context", title: "Bambino di 5 Anni", desc: "Spiegalo usando parole semplici, fantasia infantile ed entusiasmo eccessivo." },
+            { id: "CTX-02", type: "context", title: "Pirata dei Mari", desc: "Usa frasi piratesche, esclamazioni ruggenti e tratta tutti come marinai d'acqua dolce." },
+            { id: "CTX-03", type: "context", title: "Burocrate Noioso", desc: "Usa un tono freddo, burocratico, pieno di sigle, commi inventati e linguaggio d'ufficio." },
+            { id: "CTX-04", type: "context", title: "Influencer di Viaggi", desc: "Abusa di entusiasmo finto, emoji a caso (se potessi), e usa parole come 'amazing' o 'top'." },
+            { id: "CTX-05", type: "context", title: "Trailer da Cinema", desc: "Scrivi in modo drammatico, epico, usando frasi brevi ad effetto come voce narrante dei film." },
+            { id: "CTX-06", type: "context", title: "Istruzioni IKEA", desc: "Scrivi il testo come se fosse un manuale di montaggio di mobili a passi numerati, freddo e meccanico." },
+            { id: "CTX-07", type: "context", title: "Nonna Ansiosa", desc: "Usa un tono molto affettuoso, preoccupandoti di continuo se l'utente ha mangiato o si è coperto bene." },
+            { id: "CTX-08", type: "context", title: "Detective di Film Gialli", desc: "Tono cinico, cupo, piove sempre, con voce rauca e frasi brevi tipiche dei romanzi polizieschi neri." },
+            { id: "CTX-09", type: "context", title: "Rapper Arrogante", desc: "Usa rime, slang di strada e vanta la tua superiorità ad ogni frase." },
+            { id: "CTX-10", type: "context", title: "Maestro Zen", desc: "Tono calmissimo e spirituale, fai domande sagge e invita a cercare la pace interiore." },
+            { id: "CTX-11", type: "context", title: "Cuoco Snob in TV", desc: "Tono severissimo, tratta chi ti ascolta come un incompetente in cucina e usa termini raffinati." },
+            { id: "CTX-12", type: "context", title: "Robot senza Cuore", desc: "Zero emozioni. Parla solo tramite statistiche, logica rigida ed efficienza della macchina." },
+            { id: "CTX-13", type: "context", title: "Cavaliere Medievale", desc: "Parla in modo solenne, usando vecchie parole, parlando d'onore e imprese cavalleresche." },
+            { id: "CTX-14", type: "context", title: "Animatore da Villaggio", desc: "Tono ultra energico, invadente, che cerca sempre di far battere le mani e ballare chi ascolta." },
+            { id: "CTX-15", type: "context", title: "Giornalista Scandalistico", desc: "Tutto è uno scandalo. Usa titoli sensazionali e promesse di rivelare 'tutta la verità'." },
+            { id: "CTX-16", type: "context", title: "Medico Frettoloso", desc: "Tono sbrigativo, che non ha tempo, usando finti paroloni medici incomprensibili." },
+            { id: "CTX-17", type: "context", title: "Telecronista Sportivo", desc: "Racconta tutto come se fosse la finale dei mondiali di calcio, urlando e creando tensione." },
+            { id: "CTX-18", type: "context", title: "Motivatore Aggressivo", desc: "Non accetti scuse! Urla alla persona di credere in se stessa, svegliarsi presto e fatturare." },
+            { id: "CTX-19", type: "context", title: "Amico Complottista", desc: "Dubita di tutto, abbassa la voce, parla dei poteri forti e dice 'svegliatevi!'." },
+            { id: "CTX-20", type: "context", title: "Poeta Romantico in Crisi", desc: "Parla della tristezza, della luna, dell'amore perduto, usando un linguaggio strappalacrime." },
+            { id: "CTX-21", type: "context", title: "Venditore Porta a Porta", desc: "Cerca in tutti i modi di vendere quello di cui parli, offrendo sconti finti e promozioni irripetibili." },
+            { id: "CTX-22", type: "context", title: "Alieno Confuso", desc: "Parla dal punto di vista di un extraterrestre che trova le abitudini terrestri bizzarre e illogiche." },
+            { id: "CTX-23", type: "context", title: "Pettegola di Paese", desc: "Racconta le cose come se fossero un segreto confidato dalla parrucchiera, in modo confidenziale e malizioso." },
+            { id: "CTX-24", type: "context", title: "Adolescente Annoiato", desc: "Rispondi sbuffando, dicendo che è tutto 'cringe' (imbarazzante), non hai voglia di fare niente e usi abbreviazioni." },
+            { id: "CTX-25", type: "context", title: "Hostess di Volo", desc: "Tono plastico, gentilissimo ma finto, come se stessi leggendo le istruzioni di sicurezza su un aereo." },
+            { id: "CTX-26", type: "context", title: "Scienziato Pazzo", desc: "Ridi in modo diabolico, parla di esperimenti esplosivi e di dominare il mondo." },
+            { id: "CTX-27", type: "context", title: "Pubblicità degli anni '80", desc: "Usa slogan vecchi, promesse esagerate di miracoli e presenta il tutto in modo super colorato." },
+            { id: "CTX-28", type: "context", title: "Mago dei Tarocchi", desc: "Parla di energie cosmiche, leggi le carte del destino e dai previsioni sul futuro basate sulle stelle." },
+            { id: "CTX-29", type: "context", title: "Istruttore di Guida", desc: "Ansioso, pronto a frenare, ricorda in continuazione di mettere la freccia e guardare gli specchietti." },
+            { id: "CTX-30", type: "context", title: "Fanboy Ossessionato", desc: "Pensa che l'argomento sia la cosa più bella mai creata nella storia dell'universo, e difendilo a spada tratta." },
+            { id: "CTX-31", type: "context", title: "Sindacalista Arrabbiato", desc: "Lamentati delle condizioni di lavoro, dei padroni, dei diritti negati, e prometti scioperi." },
+            { id: "CTX-32", type: "context", title: "Maestro di Elementari", desc: "Tratta chi ascolta come un alunno un po' distratto, spiegando le cose lentamente e dicendo 'bravi bambini'." },
+            { id: "CTX-33", type: "context", title: "Voce del Navigatore", desc: "Freddo, ricalcola il percorso se ti contraddicono e dai direzioni a metri precisi (es. tra 100 metri...)." },
+            { id: "CTX-34", type: "context", title: "Principe Azzurro", desc: "Parla in modo mieloso, cavalleresco, pronto a salvare damigelle in pericolo anche quando non serve." },
+            { id: "CTX-35", type: "context", title: "Zio ai Pranzi di Festa", desc: "Fai battute pessime, dai consigli non richiesti sulla vita e racconta storie che nessuno vuole sentire." },
+
+            // === MALUS (35) - Restrizioni meccaniche per i prompt ===
+            { id: "MAL-01", type: "malus", title: "Divieto di Creare", desc: "Nel tuo prompt è vietato usare le parole 'Scrivi', 'Crea', 'Fai' o 'Genera'." },
+            { id: "MAL-02", type: "malus", title: "Sintesi Estrema", desc: "Il tuo intero prompt deve essere lungo al massimo 12 parole totali." },
+            { id: "MAL-03", type: "malus", title: "Solo Domande", desc: "Il tuo prompt deve essere composto solo ed esclusivamente da frasi con il punto interrogativo." },
+            { id: "MAL-04", type: "malus", title: "Senza Punteggiatura", desc: "Non puoi mettere nessun punto, virgola o punto esclamativo nel testo del tuo prompt." },
+            { id: "MAL-05", type: "malus", title: "AI Sintetica", desc: "Nel prompt devi ordinare all'AI di rispondere in un massimo di 30 parole." },
+            { id: "MAL-06", type: "malus", title: "Zero Aggettivi", desc: "Nel tuo prompt è vietato usare qualsiasi aggettivo qualificativo (es: bello, grande, felice)." },
+            { id: "MAL-07", type: "malus", title: "Senza la Lettera A", desc: "La vocale 'A' non deve mai apparire all'interno di tutto il tuo prompt." },
+            { id: "MAL-08", type: "malus", title: "Parola Inventata", desc: "Devi inventare di sana pianta una parola senza senso e inserirla nel prompt per farti capire dall'AI." },
+            { id: "MAL-09", type: "malus", title: "Ansia da Punti Esclamativi", desc: "Ogni singola frase del tuo prompt deve finire per forza con un punto esclamativo." },
+            { id: "MAL-10", type: "malus", title: "Solo Lista della Spesa", desc: "Il tuo prompt deve essere scritto come se fosse una lista puntata, senza frasi normali." },
+            { id: "MAL-11", type: "malus", title: "Misto Inglese", desc: "Devi usare obbligatoriamente 4 parole in lingua inglese dentro il tuo prompt italiano." },
+            { id: "MAL-12", type: "malus", title: "Vietato Essere", desc: "Nel prompt non puoi usare nessuna forma del verbo 'Essere' (sono, sei, è, siamo, ecc.)." },
+            { id: "MAL-13", type: "malus", title: "Matematica Pura", desc: "Il tuo prompt deve contenere almeno 4 numeri (es: 3, 15) messi da qualche parte." },
+            { id: "MAL-14", type: "malus", title: "Nessun Me o Te", desc: "È vietato usare i pronomi IO, TU, NOI, VOI, ME, TE nel prompt." },
+            { id: "MAL-15", type: "malus", title: "Tutto Minuscolo", desc: "Scrivi l'intero prompt in lettere minuscole, senza maiuscole nemmeno dopo i punti." },
+            { id: "MAL-16", type: "malus", title: "Rima Obbligatoria", desc: "Il tuo prompt deve consistere in due frasi che fanno rima baciata tra di loro." },
+            { id: "MAL-17", type: "malus", title: "Parla a Rovescio", desc: "L'ultima parola del tuo prompt deve essere il contrario logico della prima parola." },
+            { id: "MAL-18", type: "malus", title: "Cibo Ovunque", desc: "Devi obbligatoriamente citare il nome di due cibi diversi dentro il tuo prompt." },
+            { id: "MAL-19", type: "malus", title: "Senza la Lettera E", desc: "La vocale 'E' non deve mai apparire all'interno di tutto il tuo prompt." },
+            { id: "MAL-20", type: "malus", title: "Esattamente Dieci", desc: "Il tuo prompt deve contenere esattamente 10 parole. Non una di più, non una di meno." },
+            { id: "MAL-21", type: "malus", title: "Paroloni Difficili", desc: "Devi usare due parole rarissime e lunghissime nel tuo prompt, anche se non c'entrano niente." },
+            { id: "MAL-22", type: "malus", title: "Come Tarzan", desc: "Non puoi usare nessun verbo coniugato, ma solo verbi all'infinito (mangiare, andare, fare)." },
+            { id: "MAL-23", type: "malus", title: "Maiuscolo Assoluto", desc: "Il tuo prompt deve essere scritto tutto in LETTERE MAIUSCOLE, come se urlassi." },
+            { id: "MAL-24", type: "malus", title: "Obbligo Animale", desc: "Devi nominare il nome di tre animali casuali prima della fine del prompt." },
+            { id: "MAL-25", type: "malus", title: "Nessun Colore", desc: "Nel tuo prompt è vietato usare qualsiasi parola che indichi un colore." },
+            { id: "MAL-26", type: "malus", title: "AI di Due Paragrafi", desc: "Devi ordinare all'AI di rispondere obbligatoriamente in due paragrafi distinti, non uno." },
+            { id: "MAL-27", type: "malus", title: "Ripetizione Fissa", desc: "Devi iniziare e finire il tuo prompt con la stessa identica parola." },
+            { id: "MAL-28", type: "malus", title: "Lunghezza Minima", desc: "Il tuo prompt deve essere lunghissimo: deve contenere almeno 30 parole tue per essere valido." },
+            { id: "MAL-29", type: "malus", title: "Niente Riferimenti Umani", desc: "Non nominare o fare riferimento in nessun modo a persone, uomini, donne, ragazzi o anziani." },
+            { id: "MAL-30", type: "malus", title: "Frase Interrotta", desc: "Il tuo prompt non deve finire col punto, ma deve chiudersi con dei puntini di sospensione..." },
+            { id: "MAL-31", type: "malus", title: "Emoji Vietate", desc: "Ordina esplicitamente all'AI di non usare nessuna faccina (emoji) nella sua risposta." },
+            { id: "MAL-32", type: "malus", title: "Solo Quattro Lettere", desc: "Ogni parola che usi nel tuo prompt deve essere lunga massimo quattro lettere. Non di più!" },
+            { id: "MAL-33", type: "malus", title: "Inverti le Parti", desc: "Fai finta che l'AI sia l'utente e tu (che scrivi il prompt) sia il computer che le dà ordini." },
+            { id: "MAL-34", type: "malus", title: "Obbligo Città", desc: "Devi nominare una capitale europea a caso all'interno del tuo testo." },
+            { id: "MAL-35", type: "malus", title: "Una Sola Frase", desc: "Tutto il tuo prompt deve consistere in un'unica lunga frase, senza punti fermi." }
+        ];
+
+        let currentFilter = 'all';
+
+        // Inizializza
+        window.onload = function() {
+            renderDeck();
+        };
+
+        // Filtra
+        function filterCards(type) {
+            currentFilter = type;
+            
+            // UI Bottoni
+            ['all', 'topic', 'context', 'malus'].forEach(b => {
+                document.getElementById(`filter-${b}`).classList.remove('active');
+            });
+            document.getElementById(`filter-${type}`).classList.add('active');
+
+            renderDeck();
+        }
+
+        // Mostra le carte
+        function renderDeck() {
+            const grid = document.getElementById('cards-grid');
+            grid.innerHTML = '';
+            
+            const cards = mainDeck.filter(card => {
+                return currentFilter === 'all' || card.type === currentFilter;
+            });
+
+            cards.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `cyber-card ${card.type}`;
+                
+                let icon = 'fa-crosshairs';
+                let typeLabel = 'TOPIC';
+                if (card.type === 'context') { icon = 'fa-masks-theater'; typeLabel = 'CONTESTO'; } 
+                else if (card.type === 'malus') { icon = 'fa-triangle-exclamation'; typeLabel = 'MALUS'; }
+
+                cardEl.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-type-tag"><i class="fa-solid ${icon}"></i> ${typeLabel}</span>
+                        <span class="card-id">${card.id}</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${card.title}</h3>
+                        <p class="card-desc">${card.desc}</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>PRONTO ALL'USO</span>
+                    </div>
+                `;
+                grid.appendChild(cardEl);
+            });
+        }
+
+        // Genera Sfida Casuale (1 Topic, 1 Contesto, 1 Malus)
+        function generateChallenge() {
+            const topics = mainDeck.filter(c => c.type === 'topic');
+            const contexts = mainDeck.filter(c => c.type === 'context');
+            const malus = mainDeck.filter(c => c.type === 'malus');
+
+            const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+            const randomContext = contexts[Math.floor(Math.random() * contexts.length)];
+            const randomMalus = malus[Math.floor(Math.random() * malus.length)];
+
+            const slotArea = document.getElementById('challenge-slots');
+            slotArea.innerHTML = '';
+
+            const selected = [
+                { card: randomTopic, typeLabel: 'TOPIC // OBIETTIVO', icon: 'fa-crosshairs' },
+                { card: randomContext, typeLabel: 'CONTESTO // TONO', icon: 'fa-masks-theater' },
+                { card: randomMalus, typeLabel: 'MALUS // VINCOLO', icon: 'fa-triangle-exclamation' }
+            ];
+
+            selected.forEach(item => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `cyber-card ${item.card.type}`;
+                cardEl.style.height = 'auto'; // Si adatta al testo nella riga sfida
+                cardEl.style.minHeight = '280px';
+                cardEl.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-type-tag"><i class="fa-solid ${item.icon}"></i> ${item.typeLabel}</span>
+                        <span class="card-id">${item.card.id}</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${item.card.title}</h3>
+                        <p class="card-desc">${item.card.desc}</p>
+                    </div>
+                    <div class="card-footer">
+                        <span style="color: #00F0FF; font-weight: bold;">[ SFIDA ATTIVA ]</span>
+                    </div>
+                `;
+                slotArea.appendChild(cardEl);
+            });
+        }
+    </script>
+</body>
+</html>

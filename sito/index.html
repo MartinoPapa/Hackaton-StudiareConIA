@@ -21,6 +21,8 @@
             <li><a href="#cos-e-ia" class="nav-link" data-section="cos-e-ia">Cos'è l'IA?</a></li>
             <li><a href="#consigli-pratici" class="nav-link" data-section="consigli-pratici">Come Usarla</a></li>
             <li><a href="#rischi" class="nav-link" data-section="rischi">Rischi</a></li>
+            <li><a href="#gioco" class="nav-link" data-section="gioco">Il Gioco</a></li>
+            <li><a href="#fast-reading" class="nav-link" data-section="fast-reading">Fast Reader</a></li>
             <li><a href="#chi-siamo" class="nav-link" data-section="chi-siamo">Chi Siamo?</a></li>
         </ul>
     </nav>
@@ -48,10 +50,10 @@
                     <h3>Rischi</h3>
                     <p class="link-subtitle">acquisisci consapevolezza</p>
                 </a>
-                <a href="#chi-siamo" class="scattered-link item-4">
-                    <img src="images/ai_benefits.png" alt="Chi Siamo">
-                    <h3>Chi Siamo?</h3>
-                    <p class="link-subtitle">il nostro team</p>
+                <a href="#gioco" class="scattered-link item-4">
+                    <img src="images/ai_benefits.png" alt="Il Gioco">
+                    <h3>Il Gioco</h3>
+                    <p class="link-subtitle">il nostro gioco da tavolo</p>
                 </a>
             </div>
         </div>
@@ -60,7 +62,10 @@
     <main>
         <section id="cos-e-ia" class="content-section fade-in">
             <div class="section-container">
-                <h2>Cos'è e Come Funziona l'<span class="highlight">IA</span>?</h2>
+                <div class="section-header">
+                    <h2>Cos'è e Come Funziona l'<span class="highlight">IA</span>?</h2>
+                    <button class="fast-read-btn" data-target="cos-e-ia">⚡ Fast Read</button>
+                </div>
                 <div class="text-content">
                     <p>L’intelligenza artificiale (IA) è la disciplina che studia e realizza sistemi capaci di svolgere
                         attività tipiche dell’intelligenza umana, come ragionare, apprendere, pianificare e creare
@@ -95,7 +100,10 @@
 
         <section id="consigli-pratici" class="content-section fade-in alt-bg">
             <div class="section-container">
-                <h2>Come utilizzar<span class="highlight">la</span> al Meglio</h2>
+                <div class="section-header">
+                    <h2>Come utilizzar<span class="highlight">la</span> al Meglio</h2>
+                    <button class="fast-read-btn" data-target="consigli-pratici">⚡ Fast Read</button>
+                </div>
                 <div class="text-content">
                     <p>Per sfruttare l'IA nello studio e nel lavoro, il segreto è il <strong>Prompt
                             Engineering</strong>.
@@ -151,7 +159,10 @@
 
         <section id="rischi" class="content-section fade-in">
             <div class="section-container">
-                <h2>I <span class="warning">Rischi</span></h2>
+                <div class="section-header">
+                    <h2>I <span class="warning">Rischi</span></h2>
+                    <button class="fast-read-btn" data-target="rischi">⚡ Fast Read</button>
+                </div>
                 <div class="text-content">
                     <p>L’intelligenza artificiale rappresenta uno strumento utile al supporto nel processo di
                         apprendimento e non si può sostituire al ragionamento o alla capacità critica di ognuno di noi.
@@ -224,6 +235,49 @@
             </div>
         </section>
 
+        <section id="gioco" class="content-section fade-in alt-bg">
+            <div class="section-container">
+                <h2>Il nostro <span class="highlight">gioco da tavolo</span></h2>
+                <div class="text-content">
+                    <p>Abbiamo creato un gioco da tavolo educativo per imparare il Prompt Engineering in modo divertente e collaborativo. Sfida i tuoi compagni, costruisci i prompt migliori e scopri chi è il vero Prompt Master!</p>
+                    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.5rem;">
+                        <a href="prompt_master_decks.html" class="gioco-link">Scopri il gioco →</a>
+                        <a href="regole.pdf" class="gioco-link" target="_blank">📚 Leggi le regole</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fast-reading" class="content-section fade-in">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Fast <span class="highlight">Reader</span></h2>
+                </div>
+                <div class="text-content">
+                    <p>Migliora la tua concentrazione leggendo una parola alla volta ad alta velocità. Usa il pulsante "⚡ Fast Read" presente in ogni sezione per caricare qui il testo e iniziare la lettura rapida!</p>
+
+                    <div class="reader-container">
+                        <div class="reader-display" id="reader-display">
+                            Seleziona un testo da leggere...
+                        </div>
+                        <div class="reader-controls">
+                            <div class="wpm-control">
+                                <label for="wpm-slider">Velocità: <span id="wpm-value">300</span> WPM</label>
+                                <input type="range" id="wpm-slider" min="100" max="800" step="50" value="300">
+                            </div>
+                            <div class="btn-group">
+                                <button id="btn-play" class="reader-btn">▶ Play</button>
+                                <button id="btn-pause" class="reader-btn">⏸ Pausa</button>
+                                <button id="btn-stop" class="reader-btn">⏹ Stop</button>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="reader-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="chi-siamo" class="content-section fade-in">
             <div class="section-container">
@@ -237,6 +291,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer>
