@@ -170,7 +170,7 @@ body {
 }
 
 .section-container {
-    max-width: 900px;
+    max-width: 1050px;
     margin-left: 5%;
     margin-right: auto;
 }
@@ -183,9 +183,10 @@ body {
 
 .text-content p {
     font-size: 1.25rem;
-    line-height: 1.8;
+    line-height: 1.15;
     margin-bottom: 1.5rem;
     color: #cbd5e1;
+    text-align: justify;
 }
 
 .text-content ul {
@@ -401,4 +402,9 @@ footer {
     .side-nav ul {
         align-items: center;
     }
+}
+
+.sottotitolo {
+    font-size: 2rem;
+    margin-bottom: 5px;
 }
