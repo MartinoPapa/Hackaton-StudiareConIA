@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studiare con l'IA</title>
+    <meta name="IA per studenti universitari">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="top">
+    <!-- Pulsante Mobile -->
+    <button id="mobile-menu-btn" class="mobile-menu-btn">☰</button>
+
+    <!-- Menù di Navigazione Laterale -->
+    <nav id="side-nav" class="side-nav hidden">
+        <ul>
+            <li><a href="#top" class="nav-link" data-section="top">Home</a></li>
+            <li><a href="#cos-e-ia" class="nav-link" data-section="cos-e-ia">Cos'è l'IA?</a></li>
+            <li><a href="#consigli-pratici" class="nav-link" data-section="consigli-pratici">Come Usarla</a></li>
+            <li><a href="#rischi" class="nav-link" data-section="rischi">Rischi</a></li>
+            <li><a href="#vantaggi" class="nav-link" data-section="vantaggi">Vantaggi</a></li>
+            <li><a href="#chi-siamo" class="nav-link" data-section="chi-siamo">Chi Siamo?</a></li>
+        </ul>
+    </nav>
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Studiare con l'<span class="highlight">IA</span></h1>
+            <p>Da <a href="#chi-siamo" class="highlight hero-link">studenti</a> per studenti, una guida all'uso
+                consapevole dell'Intelligenza
+                Artificiale</p>
+
+            <div class="scattered-container">
+                <a href="#cos-e-ia" class="scattered-link item-1">
+                    <img src="images/ai_whatis.png" alt="Cos'è l'IA">
+                    <h3>Cos'è l'IA?</h3>
+                    <p class="link-subtitle">una breve introduzione</p>
+                </a>
+                <a href="#consigli-pratici" class="scattered-link item-2">
+                    <img src="images/ai_tips.png" alt="Come usarla">
+                    <h3>Come Usarla</h3>
+                    <p class="link-subtitle">consigli pratici</p>
+                </a>
+                <a href="#rischi" class="scattered-link item-3">
+                    <img src="images/ai_risks.png" alt="Rischi">
+                    <h3>Rischi</h3>
+                    <p class="link-subtitle">acquisisci consapevolezza</p>
+                </a>
+                <a href="#vantaggi" class="scattered-link item-4">
+                    <img src="images/ai_benefits.png" alt="Vantaggi">
+                    <h3>Vantaggi</h3>
+                    <p class="link-subtitle">perchè dovresti usarla?</p>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="cos-e-ia" class="content-section fade-in">
+            <div class="section-container">
+                <h2>Cos'è e Come Funziona l'<span class="highlight">IA</span>?</h2>
+                <div class="text-content">
+                    <p>L'Intelligenza Artificiale non è magia, ma matematica applicata. Si basa su algoritmi capaci di
+                        analizzare enormi quantità di dati, riconoscere pattern complessi e generare output, simulando
+                        capacità cognitive umane.</p>
+                    <p>Attraverso il Machine Learning e il Deep Learning (reti neurali), i sistemi "imparano"
+                        dall'esperienza, migliorando le loro prestazioni nel tempo senza essere esplicitamente
+                        programmati per ogni singola eventualità.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="consigli-pratici" class="content-section fade-in alt-bg">
+            <div class="section-container">
+                <h2>Come Utilizzarla al Meglio</h2>
+                <div class="text-content">
+                    <p>Per sfruttare l'IA nello studio e nel lavoro, il segreto è il <strong>Prompt Engineering</strong>
+                        (l'arte di formulare richieste efficaci):</p>
+                    <ul>
+                        <li><strong>Sii specifico:</strong> Fornisci contesto, formato desiderato e ruolo (es. "Agisci
+                            come un professore di storia...").</li>
+                        <li><strong>Itera:</strong> Non fermarti al primo risultato. Chiedi di raffinare o approfondire.
+                        </li>
+                        <li><strong>Usa l'IA come copilota, non come sostituto:</strong> Fai generare bozze, riassunti o
+                            idee, ma mantieni sempre il controllo critico sul risultato finale.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="rischi" class="content-section fade-in">
+            <div class="section-container">
+                <h2>I <span class="warning">Rischi</span></h2>
+                <div class="text-content">
+                    <p>Nonostante le enormi potenzialità, l'IA porta con sé sfide critiche che non possiamo ignorare:
+                    </p>
+                    <ul>
+                        <li><strong>Allucinazioni:</strong> I modelli possono generare informazioni false presentandole
+                            come fatti certi.</li>
+                        <li><strong>Bias:</strong> L'IA apprende dai dati umani, ereditandone e spesso amplificandone i
+                            pregiudizi.</li>
+                        <li><strong>Deepfake e Disinformazione:</strong> La facilità di generare media iper-realistici
+                            mina la fiducia nell'informazione.</li>
+                        <li><strong>Privacy:</strong> L'ingestione massiva di dati solleva enormi questioni sulla
+                            protezione delle informazioni personali.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="vantaggi" class="content-section fade-in alt-bg">
+            <div class="section-container">
+                <h2>I <span class="success">Vantaggi</span></h2>
+                <div class="text-content">
+                    <p>L'integrazione etica e consapevole dell'IA può elevare le nostre capacità:</p>
+                    <ul>
+                        <li><strong>Automazione:</strong> Riduzione del tempo speso in attività ripetitive, liberando
+                            spazio per la creatività.</li>
+                        <li><strong>Accessibilità:</strong> Strumenti di traduzione istantanea e sintesi vocale
+                            abbattono barriere linguistiche e fisiche.</li>
+                        <li><strong>Ricerca:</strong> Accelerazione delle scoperte in campo medico, scientifico e
+                            tecnologico.</li>
+                        <li><strong>Apprendimento Personalizzato:</strong> Tutor virtuali capaci di adattarsi al ritmo
+                            di studio di ogni singolo studente.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="chi-siamo" class="content-section fade-in">
+            <div class="section-container">
+                <h2>Chi <span class="highlight">Siamo?</span></h2>
+                <div class="text-content">
+                    <p>Siamo un gruppo di studenti universitari di diversa provenienza uniti dal caso</p>
+                    <h3>Eleonora Brandigi | Mattia Ferraro | Marta Buongiovanni <br> Stiljan Shehu | Mirko Mennini |
+                        Sara
+                        Leoni | Martino Papa</h3>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Il futuro entra in aula. Progetto ALMA Digital Education. Hackathon.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
